@@ -1,0 +1,143 @@
+.popup {
+    width: 100vw;
+    height: 100%;
+    background-color: rgba($color-black, .8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+
+    // check caniuse.com to test if the modern CSS property
+    // supports the browser
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px) brightness(40%);
+    }
+
+    &__content {
+        @include center;
+
+        width: 80%;
+        box-shadow: $box-shadow;
+        margin: auto 1rem;
+        background-color: $color-white;
+        border-radius: $border-radius-small;
+        display: table;
+        overflow: hidden;
+
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.5); // overrided the mixins because an element can't have 2 transition property at the same time so we merged it
+        transition: all .5s .2s;
+
+        @include respond(phone) {
+            width: 70%;
+            height: 50%;
+        }
+
+    }
+
+    &__left {
+        width: 33.33333%;
+        display: table-cell;
+
+        @include respond(phone) {
+            width: 100%;
+            height: 30%;
+            display: table-row;
+        }
+    }
+
+    &__right {
+        width: 66.66667%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+
+        @include respond(phone) {
+            width: 100%;
+            height: 70%;
+            text-align: center;
+            display: table-row;
+        }
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+
+        @include respond(phone) {
+            display: inline-block;
+        }
+    }
+
+    &__heading {
+        @include respond(phone) {
+            margin-top: 5rem;
+        }
+    }
+
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+
+        -moz-column-count: 2;
+        -moz-column-gap: 4rem;
+        -moz-column-rule: 2px solid $color-grey-light-2;
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 2px solid $color-grey-light-2;
+
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto; // configure the html language for hyphens
+
+        @include respond(phone) {
+            column-count: 1;
+            padding: 0 2.5rem;
+        }
+    }
+
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__button {
+        @include respond(phone) {
+            margin-bottom: 5rem;
+        }
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1;
+
+            @include respond(phone) {
+                font-size: 6rem;
+            }
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+}
