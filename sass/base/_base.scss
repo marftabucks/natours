@@ -1,0 +1,42 @@
+*,
+/* so that the pseudo-elements got these property set too */
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    /* root font size 62.5% or 10px from the default browser font-size*/
+    /* 10 px / 16 px (default) = 0.625 */
+    // this defines what 1rem is
+    font-size: 62.5%;
+    
+    @include respond(tab-land) { // width < 1200?
+        font-size: 56.25%; // 1 rem = 9px. So 9/16px = 56.25%
+    }
+
+    @include respond(tab-port) { // width < 900?
+        font-size: 50%; // 1 rem = 8px. So 8/16px = 50%
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%; // 1 rem = 12px. So 12/16px = 75%
+    }
+    
+}
+
+body {
+    box-sizing: border-box;
+    padding: 30px;
+
+    @include respond(tab-port) { 
+        padding: 0;
+    }
+}
+
+::selection {
+    background-color: $color-primary;
+    color: $color-white;
+}
